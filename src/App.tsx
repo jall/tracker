@@ -1,11 +1,4 @@
-import {
-  Box,
-  CSSReset,
-  Flex,
-  Heading,
-  ThemeProvider,
-  Grid,
-} from "@chakra-ui/core"
+import {CSSReset, Flex, Heading, ThemeProvider} from "@chakra-ui/core"
 import React, {useState} from "react"
 import Aims from "./aims/Aims"
 import {Aim} from "./aims/types"
