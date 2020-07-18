@@ -1,6 +1,13 @@
-import {Box, CSSReset, Flex, Heading, ThemeProvider} from "@chakra-ui/core"
+import {
+  Box,
+  CSSReset,
+  Flex,
+  Heading,
+  ThemeProvider,
+  Grid,
+} from "@chakra-ui/core"
 import React, {useState} from "react"
-import Aims from "./aims"
+import Aims from "./aims/Aims"
 import {Aim} from "./aims/types"
 import {notNothing} from "./helpers"
 
@@ -11,36 +18,29 @@ function App() {
   return (
     <ThemeProvider>
       <CSSReset />
+
       <Flex
         as="nav"
         align="center"
         justify="space-between"
         wrap="wrap"
         padding="1.5rem"
-        bg="teal.500"
+        bg="#3498db"
         color="white"
       >
         <Flex align="center" mr={5}>
           <Heading as="h1" size="lg">
-            Chakra UI
+            Tracker
           </Heading>
         </Flex>
       </Flex>
 
-      <Flex
-        as="section"
-        align="center"
-        justify="space-between"
-        wrap="wrap"
-        padding="1.5rem"
-      >
-        <Box>
-          <Aims
-            aims={Object.values(aims).filter(notNothing)}
-            upsert={(aim) => setAims({...aims, [aim.id]: aim})}
-            remove={(id) => setAims({...aims, [id]: undefined})}
-          />
-        </Box>
+      <Flex as="section" padding="1.5rem" justify="center">
+        <Aims
+          aims={Object.values(aims).filter(notNothing)}
+          upsert={(aim) => setAims({...aims, [aim.id]: aim})}
+          remove={(id) => setAims({...aims, [id]: undefined})}
+        />
       </Flex>
     </ThemeProvider>
   )
