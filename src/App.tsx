@@ -1,12 +1,13 @@
 import {
+  Box,
+  Button,
   CSSReset,
   Flex,
   Heading,
   ThemeProvider,
-  Button,
-  Box,
 } from "@chakra-ui/core"
-import * as firebase from "firebase"
+import * as firebase from "firebase/app"
+import "firebase/auth"
 import React, {useState} from "react"
 import Aims from "./aims/Aims"
 import {Aim} from "./aims/types"
@@ -22,6 +23,7 @@ firebase.initializeApp({
   messagingSenderId: "692454126753",
   appId: "1:692454126753:web:c5e1f56f7c669f1c99ace0",
 })
+firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
 
 function App() {
   const [aims, setAims] = useState<Record<string, Aim | undefined>>({

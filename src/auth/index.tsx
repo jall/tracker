@@ -1,5 +1,5 @@
 import React from "react"
-import * as firebase from "firebase"
+import * as firebase from "firebase/app"
 
 export default function Auth() {
   const containerId = "firebaseui-auth-container"
@@ -14,7 +14,7 @@ export default function Auth() {
       callbacks: {
         signInSuccessWithAuthResult: () => false,
       },
-      signInFlow: "popup",
+      credentialHelper: firebaseUI.auth.CredentialHelper.NONE,
     })
   })
 
