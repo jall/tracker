@@ -21,6 +21,7 @@ export default function AddNew({add}: Props) {
           type="text"
           id="title"
           aria-describedby="title-helper-text"
+          value={title || ""}
           onChange={(event: FormEvent<HTMLInputElement>) =>
             setTitle(event.currentTarget.value)
           }
