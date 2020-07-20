@@ -48,11 +48,10 @@ function App() {
         justify="space-between"
         wrap="wrap"
         padding="1.5rem"
-        bg="#3498db"
-        color="white"
+        bg="blue.400"
       >
         <Flex align="center" mr={5}>
-          <Heading as="h1" size="lg">
+          <Heading as="h1" size="lg" color="white">
             Tracker
           </Heading>
         </Flex>
@@ -61,7 +60,8 @@ function App() {
           <Box>
             <Button
               leftIcon="close"
-              bg="#2ecc71"
+              bg="gray.300"
+              color="gray.700"
               onClick={() => firebase.auth().signOut()}
             >
               Logout

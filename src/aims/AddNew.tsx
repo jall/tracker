@@ -29,11 +29,13 @@ export default function AddNew({add}: Props) {
         />
         <FormHelperText id="title-helper-text">Add a new aim</FormHelperText>
       </FormControl>
+
       <Button
         aria-label="Add aim"
         leftIcon="add"
         type="submit"
-        bg="#2ecc71"
+        bg="green.400"
+        color="white"
         onClick={() => {
           if (title) {
             add({id: uuid.v4(), title})
