@@ -12,7 +12,7 @@ import React, {useState} from "react"
 import Aims from "./aims/Aims"
 import {Aim} from "./aims/types"
 import Auth from "./auth"
-import {notNothing} from "./helpers"
+import {notNothing, createStubAims} from "./helpers"
 
 firebase.initializeApp({
   apiKey: "AIzaSyBaj8c0cRnk2DplDZVXGEoemgqz3hPH23s",
@@ -26,9 +26,13 @@ firebase.initializeApp({
 firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
 
 function App() {
-  const [aims, setAims] = useState<Record<string, Aim | undefined>>({
-    "1": {id: "1", title: "Pullups"},
-  })
+  const [aims, setAims] = useState(
+    createStubAims().reduce((acc, aim) => {
+      acc[aim.id] = aim
+      return acc
+    }, {} as Record<string, Aim | undefined>),
+  )
+
   const [isAuthed, setIsAuthed] = useState(firebase.auth().currentUser != null)
   firebase.auth().onAuthStateChanged((user) => {
     setIsAuthed(user != null)
@@ -70,7 +74,15 @@ function App() {
         {isAuthed ? (
           <Aims
             aims={Object.values(aims).filter(notNothing)}
-            upsert={(aim) => setAims({...aims, [aim.id]: aim})}
+            upsert={(aim) =>
+              setAims({
+                ...aims,
+                [aim.id]: {
+                  ...aim,
+                  efforts: "efforts" in aim ? aim.efforts : [],
+                },
+              })
+            }
             remove={(id) => setAims({...aims, [id]: undefined})}
           />
         ) : (

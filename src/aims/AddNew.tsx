@@ -6,10 +6,11 @@ import {
   Stack,
 } from "@chakra-ui/core"
 import React, {FormEvent, useState} from "react"
-import {Aim} from "./types"
+import * as uuid from "uuid"
+import {AimInput} from "./types"
 
 interface Props {
-  add: (aim: Aim) => void
+  add: (aim: AimInput) => void
 }
 
 export default function AddNew({add}: Props) {
@@ -35,7 +36,7 @@ export default function AddNew({add}: Props) {
         bg="#2ecc71"
         onClick={() => {
           if (title) {
-            add({id: `${Math.random()}`, title})
+            add({id: uuid.v4(), title})
           }
           setTitle(null)
         }}
