@@ -4,6 +4,7 @@ import {
   CSSReset,
   Flex,
   Heading,
+  Spinner,
   ThemeProvider,
 } from "@chakra-ui/core"
 import * as firebase from "firebase/app"
@@ -12,7 +13,7 @@ import React, {useState} from "react"
 import Aims from "./aims/Aims"
 import {Aim} from "./aims/types"
 import Auth from "./auth"
-import {notNothing, createStubAims} from "./helpers"
+import {createStubAims, notNothing} from "./helpers"
 
 firebase.initializeApp({
   apiKey: "AIzaSyBaj8c0cRnk2DplDZVXGEoemgqz3hPH23s",
@@ -23,7 +24,6 @@ firebase.initializeApp({
   messagingSenderId: "692454126753",
   appId: "1:692454126753:web:c5e1f56f7c669f1c99ace0",
 })
-firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
 
 function App() {
   const [aims, setAims] = useState(
@@ -33,9 +33,11 @@ function App() {
     }, {} as Record<string, Aim | undefined>),
   )
 
-  const [isAuthed, setIsAuthed] = useState(firebase.auth().currentUser != null)
+  const [auth, setAuth] = useState<
+    "unchecked" | "authenticated" | "unauthenticated"
+  >("unchecked")
   firebase.auth().onAuthStateChanged((user) => {
-    setIsAuthed(user != null)
+    setAuth(user === null ? "unauthenticated" : "authenticated")
   })
 
   return (
@@ -56,7 +58,7 @@ function App() {
           </Heading>
         </Flex>
 
-        {isAuthed ? (
+        {auth === "authenticated" ? (
           <Box>
             <Button
               leftIcon="close"
@@ -71,7 +73,9 @@ function App() {
       </Flex>
 
       <Flex as="section" padding="1.5rem" justify="center">
-        {isAuthed ? (
+        {auth === "unchecked" ? (
+          <Spinner size="xl" />
+        ) : auth === "authenticated" ? (
           <Aims
             aims={Object.values(aims).filter(notNothing)}
             upsert={(aim) =>
