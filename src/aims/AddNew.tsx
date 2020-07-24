@@ -28,7 +28,7 @@ export default function AddNew({add}: Props) {
         setTitle(null)
       }}
     >
-      <Stack isInline>
+      <Stack isInline justify="center">
         <FormControl>
           <Input
             type="text"
