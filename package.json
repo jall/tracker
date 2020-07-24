@@ -25,7 +25,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "check-formatting": "prettier '**/*.{ts,tsx,graphql}' --list-different",
     "fix-formatting": "prettier '**/*.{ts,tsx,graphql}' --write",
