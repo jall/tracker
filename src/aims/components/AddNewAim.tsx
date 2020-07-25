@@ -6,7 +6,6 @@ import {
   Stack,
 } from "@chakra-ui/core"
 import React, {FormEvent, useState} from "react"
-import * as uuid from "uuid"
 import {AimInput} from "../types"
 
 interface Props {
@@ -22,7 +21,7 @@ export default function AddNewAim({add}: Props) {
         event.preventDefault()
 
         if (title) {
-          add({id: uuid.v4(), title})
+          add({title})
         }
 
         setTitle(null)

@@ -1,13 +1,7 @@
-import React, {useContext} from "react"
+import * as firebase from "firebase"
+import {useCurrentUser} from "../auth"
 
-export const DatabaseContext = React.createContext<
-  firebase.firestore.Firestore | undefined
->(undefined)
-
-export const useDatabase = () => {
-  const database = useContext(DatabaseContext)
-  if (!database) {
-    throw new Error("Database not initialised")
-  }
-  return database
+export const useCurrentUserDocument = () => {
+  const user = useCurrentUser()
+  return firebase.firestore().collection("users").doc(user.uid)
 }

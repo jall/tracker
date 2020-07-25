@@ -5,7 +5,6 @@ export interface Aim {
 }
 
 export interface AimInput {
-  id: string
   title: string
 }
 
