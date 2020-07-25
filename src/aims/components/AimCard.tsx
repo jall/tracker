@@ -4,7 +4,6 @@ import {
   Editable,
   EditableInput,
   EditablePreview,
-  Grid,
   Menu,
   MenuButton,
   MenuItem,
@@ -14,43 +13,16 @@ import {
 } from "@chakra-ui/core"
 import React from "react"
 import * as uuid from "uuid"
-import {accumulate} from "../helpers"
-import AddNew from "./AddNew"
-import {Aim, AimInput} from "./types"
+import {accumulate} from "../../helpers"
+import {Aim, AimInput} from "../types"
 
 interface Props {
-  aims: Array<Aim>
-  upsert: (aim: Aim | AimInput) => void
-  remove: (id: string) => void
-}
-
-export default function Aims({aims, upsert, remove}: Props) {
-  return (
-    <Stack spacing={10} width="100%" padding={5}>
-      <Grid
-        gridTemplateColumns="repeat( auto-fit, 250px )"
-        justifyContent="center"
-        gap={3}
-      >
-        {aims.map((aim) => (
-          <Box key={aim.id} bg="gray.100" boxShadow="md">
-            <AimItem aim={aim} upsert={upsert} remove={() => remove(aim.id)} />
-          </Box>
-        ))}
-      </Grid>
-
-      <AddNew add={upsert} />
-    </Stack>
-  )
-}
-
-interface AimProps {
   aim: Aim
   upsert: (aim: Aim | AimInput) => void
   remove: () => void
 }
 
-function AimItem({aim, upsert, remove}: AimProps) {
+export default function AimCard({aim, upsert, remove}: Props) {
   const totalEfforts = aim.efforts.reduce(
     (total, effort) => total + effort.amount,
     0,

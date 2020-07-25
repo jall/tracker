@@ -7,13 +7,13 @@ import {
 } from "@chakra-ui/core"
 import React, {FormEvent, useState} from "react"
 import * as uuid from "uuid"
-import {AimInput} from "./types"
+import {AimInput} from "../types"
 
 interface Props {
   add: (aim: AimInput) => void
 }
 
-export default function AddNew({add}: Props) {
+export default function AddNewAim({add}: Props) {
   const [title, setTitle] = useState<string | null>(null)
   return (
     <form

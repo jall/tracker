@@ -8,22 +8,14 @@ import {
   ThemeProvider,
 } from "@chakra-ui/core"
 import * as firebase from "firebase/app"
-import React, {useState} from "react"
-import Aims from "./aims/Aims"
-import {Aim} from "./aims/types"
+import React from "react"
+import AimsPage from "./aims/controllers/AimsPage"
 import {useAuth} from "./auth"
 import LoginPage from "./auth/LoginPage"
 import {DatabaseContext} from "./database"
-import {createStubAims, notNothing} from "./helpers"
 
 function App() {
   const auth = useAuth()
-  const [aims, setAims] = useState(
-    createStubAims().reduce((acc, aim) => {
-      acc[aim.id] = aim
-      return acc
-    }, {} as Record<string, Aim | undefined>),
-  )
 
   return (
     <DatabaseContext.Provider value={firebase.firestore()}>
@@ -62,19 +54,7 @@ function App() {
           {auth === "unchecked" ? (
             <Spinner size="xl" />
           ) : auth === "authenticated" ? (
-            <Aims
-              aims={Object.values(aims).filter(notNothing)}
-              upsert={(aim) =>
-                setAims({
-                  ...aims,
-                  [aim.id]: {
-                    ...aim,
-                    efforts: "efforts" in aim ? aim.efforts : [],
-                  },
-                })
-              }
-              remove={(id) => setAims({...aims, [id]: undefined})}
-            />
+            <AimsPage />
           ) : (
             <LoginPage />
           )}
