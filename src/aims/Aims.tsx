@@ -117,7 +117,7 @@ function AimItem({aim, upsert, remove}: AimProps) {
       </Stack>
 
       <Stack
-        bg="white"
+        bg="cyan.100"
         width="100%"
         alignItems="center"
         padding={1}

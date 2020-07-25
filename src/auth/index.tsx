@@ -1,31 +1,31 @@
-import React from "react"
 import * as firebase from "firebase/app"
+import {useState, useEffect} from "react"
 
-export default function Auth() {
-  const containerId = "firebaseui-auth-container"
+export const useAuth = () => {
+  const [auth, setAuth] = useState<
+    "unchecked" | "authenticated" | "unauthenticated"
+  >("unchecked")
 
-  import("firebaseui").then((firebaseUI) => {
-    const ui =
-      firebaseUI.auth.AuthUI.getInstance() ??
-      new firebaseUI.auth.AuthUI(firebase.auth())
-
-    ui.start(`#${containerId}`, {
-      signInOptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
-      callbacks: {
-        signInSuccessWithAuthResult: () => false,
-      },
-      credentialHelper: firebaseUI.auth.CredentialHelper.NONE,
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      setAuth(user === null ? "unauthenticated" : "authenticated")
     })
-  })
+  }, [setAuth])
 
-  return (
-    <>
-      <link
-        type="text/css"
-        rel="stylesheet"
-        href="https://cdn.firebase.com/libs/firebaseui/3.5.2/firebaseui.css"
-      />
-      <div id={containerId}></div>
-    </>
-  )
+  return auth
+}
+
+// Only intended for use after login
+export const useLoggedInUser = () => {
+  const [user, setUser] = useState<firebase.User | null>(null)
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged(setUser)
+  }, [user, setUser])
+
+  if (!user) {
+    throw new Error("User not found")
+  }
+
+  return user
 }
