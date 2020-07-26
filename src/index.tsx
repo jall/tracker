@@ -5,6 +5,7 @@ import "firebase/firestore"
 
 import React from "react"
 import ReactDOM from "react-dom"
+import log from "./logger"
 
 firebase.initializeApp({
   apiKey: "AIzaSyBaj8c0cRnk2DplDZVXGEoemgqz3hPH23s",
@@ -15,6 +16,17 @@ firebase.initializeApp({
   messagingSenderId: "692454126753",
   appId: "1:692454126753:web:c5e1f56f7c669f1c99ace0",
 })
+
+firebase
+  .firestore()
+  .enablePersistence()
+  .then(() => log.info("Enabled offline persistence"))
+  .catch((error) =>
+    log.error("Failed to enable offline persistence", {
+      error,
+      reason: error.message,
+    }),
+  )
 
 import "./index.css"
 import App from "./App"
