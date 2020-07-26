@@ -68,7 +68,7 @@ export default function AimCard({aim, upsert, remove}: Props) {
       paddingX="10"
       paddingTop="5"
     >
-      <Stack isInline justify="center">
+      <Stack isInline>
         <Editable
           defaultValue={aim.title}
           onChange={(title) => upsert({...aim, title})}
@@ -78,9 +78,11 @@ export default function AimCard({aim, upsert, remove}: Props) {
           <EditableInput />
         </Editable>
 
-        <Box alignSelf="end">
+        <Box>
           <Menu>
-            <MenuButton as={Button}>...</MenuButton>
+            <MenuButton as={Button} fontSize="3xl" fontWeight="bold">
+              ⋯
+            </MenuButton>
             <MenuList>
               <MenuItem onClick={remove}>Delete aim</MenuItem>
             </MenuList>
