@@ -1,19 +1,14 @@
 import {Spinner, Text} from "@chakra-ui/core"
 import React from "react"
-import {useCollectionData} from "react-firebase-hooks/firestore"
 import * as uuid from "uuid"
-import {useCurrentUserDocument} from "../../database"
 import log from "../../logger"
 import MainContent from "../components/MainContent"
+import {useAims, useAimsCollection} from "../hooks"
 import {Aim} from "../types"
 
 export default function AimsPage() {
-  const userDoc = useCurrentUserDocument()
-  const collection = userDoc.collection("aims")
-
-  const [aims, loading, error] = useCollectionData<Aim>(collection, {
-    idField: "id",
-  })
+  const collection = useAimsCollection()
+  const [aims, loading, error] = useAims()
 
   if (loading) {
     return <Spinner size="xl" />
