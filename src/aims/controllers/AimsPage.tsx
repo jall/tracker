@@ -23,18 +23,5 @@ export default function AimsPage() {
     )
   }
 
-  return (
-    <CardGrid
-      aims={aims || []}
-      // upsert={(aimOrInput) => {
-      //   const aim: Aim = {
-      //     id: uuid.v4(),
-      //     efforts: [],
-      //     ...aimOrInput,
-      //   }
-      //   return collection.doc(aim.id).set(aim)
-      // }}
-      // remove={(id) => collection.doc(id).delete()}
-    />
-  )
+  return <CardGrid aims={aims || []} />
 }
