@@ -10,43 +10,65 @@ import {
   MenuList,
   Stack,
   Text,
+  Spinner,
 } from "@chakra-ui/core"
 import React from "react"
 import * as uuid from "uuid"
 import {accumulate} from "../../helpers"
-import {Aim, AimInput} from "../types"
+import {Aim} from "../types"
+import {useEfforts, useEffortsCollection, useAimDoc} from "../hooks"
 
 interface Props {
   aim: Aim
-  upsert: (aim: Aim | AimInput) => void
-  remove: () => void
 }
 
-export default function AimCard({aim, upsert, remove}: Props) {
-  const totalEfforts = aim.efforts.reduce(
+export default function AimCard({aim}: Props) {
+  const aimDoc = useAimDoc(aim.id)
+  const effortsCollection = useEffortsCollection(aim.id)
+  const [efforts, loading, error] = useEfforts(aim.id)
+
+  console.log(efforts)
+
+  if (loading) {
+    return (
+      <Container>
+        <Spinner size="xl" />
+      </Container>
+    )
+  }
+
+  if (error) {
+    return (
+      <Container>
+        <Text color="red" size="xl">
+          Sorry, something went wrong while fetching your Efforts!
+        </Text>
+      </Container>
+    )
+  }
+
+  const totalEfforts = (efforts || []).reduce(
     (total, effort) => total + effort.amount,
     0,
   )
+
   const accumulateEffortClicks = accumulate(() => void null, 250)
 
-  const IncrementEffortButton = (props: {
+  const IncrementEffortButton = ({
+    amount,
+    onClick,
+  }: {
     amount: number
     onClick: () => Promise<Array<void>>
   }) => (
     <Button
-      aria-label={`Increment effort by ${props.amount}`}
+      aria-label={`Increment effort by ${amount}`}
       onClick={() =>
-        props.onClick().then((clicks) =>
-          upsert({
-            ...aim,
-            efforts: [
-              ...aim.efforts,
-              {
-                id: uuid.v4(),
-                amount: clicks.length * props.amount,
-                achievedAt: new Date(),
-              },
-            ],
+        onClick().then((clicks) =>
+          effortsCollection.add({
+            id: uuid.v4(),
+            amount: clicks.length * amount,
+            achievedAt: new Date(),
           }),
         )
       }
@@ -57,21 +79,16 @@ export default function AimCard({aim, upsert, remove}: Props) {
       borderRadius="50%"
       margin="1"
     >
-      +{props.amount}
+      +{amount}
     </Button>
   )
 
   return (
-    <Stack
-      alignItems="center"
-      justifyContent="space-between"
-      paddingX="10"
-      paddingTop="5"
-    >
+    <Container>
       <Stack isInline>
         <Editable
           defaultValue={aim.title}
-          onChange={(title) => upsert({...aim, title})}
+          onChange={(title) => aimDoc.set({title}, {merge: true})}
           size="l"
         >
           <EditablePreview />
@@ -84,7 +101,7 @@ export default function AimCard({aim, upsert, remove}: Props) {
               ⋯
             </MenuButton>
             <MenuList>
-              <MenuItem onClick={remove}>Delete aim</MenuItem>
+              <MenuItem onClick={() => aimDoc.delete()}>Delete aim</MenuItem>
             </MenuList>
           </Menu>
         </Box>
@@ -113,16 +130,10 @@ export default function AimCard({aim, upsert, remove}: Props) {
         <Button
           aria-label="Remove most recent effort"
           onClick={() => {
-            const [first, ...rest] = aim.efforts
-            const mostRecentEffort = rest.reduce(
-              (mostRecent, effort) =>
-                effort.achievedAt > mostRecent.achievedAt ? effort : mostRecent,
-              first,
-            )
-            upsert({
-              ...aim,
-              efforts: aim.efforts.filter((e) => e.id !== mostRecentEffort.id),
-            })
+            if (efforts && efforts.length > 0) {
+              const [mostRecentEffort] = efforts
+              effortsCollection.doc(mostRecentEffort.id).delete()
+            }
           }}
           color="gray.300"
           fontSize="3xl"
@@ -132,6 +143,17 @@ export default function AimCard({aim, upsert, remove}: Props) {
           ⤺
         </Button>
       </Stack>
-    </Stack>
+    </Container>
   )
 }
+
+const Container = ({children}: {children: React.ReactNode}) => (
+  <Stack
+    alignItems="center"
+    justifyContent="space-between"
+    paddingX="10"
+    paddingTop="5"
+  >
+    {children}
+  </Stack>
+)

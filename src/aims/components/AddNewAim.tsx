@@ -6,14 +6,13 @@ import {
   Stack,
 } from "@chakra-ui/core"
 import React, {FormEvent, useState} from "react"
-import {AimInput} from "../types"
+import * as uuid from "uuid"
+import {useAimsCollection} from "../hooks"
 
-interface Props {
-  add: (aim: AimInput) => void
-}
-
-export default function AddNewAim({add}: Props) {
+export default function AddNewAim() {
+  const collection = useAimsCollection()
   const [title, setTitle] = useState<string | null>(null)
+
   return (
     <form
       action="#"
@@ -21,7 +20,7 @@ export default function AddNewAim({add}: Props) {
         event.preventDefault()
 
         if (title) {
-          add({title})
+          collection.add({id: uuid.v4(), title})
         }
 
         setTitle(null)

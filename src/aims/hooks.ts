@@ -30,7 +30,7 @@ export const useEffortsCollection = (aimId: string) => {
 
 export const useEfforts = (aimId: string) => {
   const collection = useEffortsCollection(aimId)
-  return useCollectionData<Effort>(collection, {
+  return useCollectionData<Effort>(collection.orderBy("achievedAt", "desc"), {
     idField: "id",
   })
 }

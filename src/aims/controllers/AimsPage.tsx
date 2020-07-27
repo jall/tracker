@@ -1,13 +1,10 @@
 import {Spinner, Text} from "@chakra-ui/core"
 import React from "react"
-import * as uuid from "uuid"
 import log from "../../logger"
-import MainContent from "../components/MainContent"
-import {useAims, useAimsCollection} from "../hooks"
-import {Aim} from "../types"
+import CardGrid from "../components/MainContent"
+import {useAims} from "../hooks"
 
 export default function AimsPage() {
-  const collection = useAimsCollection()
   const [aims, loading, error] = useAims()
 
   if (loading) {
@@ -27,17 +24,17 @@ export default function AimsPage() {
   }
 
   return (
-    <MainContent
+    <CardGrid
       aims={aims || []}
-      upsert={(aimOrInput) => {
-        const aim: Aim = {
-          id: uuid.v4(),
-          efforts: [],
-          ...aimOrInput,
-        }
-        return collection.doc(aim.id).set(aim)
-      }}
-      remove={(id) => collection.doc(id).delete()}
+      // upsert={(aimOrInput) => {
+      //   const aim: Aim = {
+      //     id: uuid.v4(),
+      //     efforts: [],
+      //     ...aimOrInput,
+      //   }
+      //   return collection.doc(aim.id).set(aim)
+      // }}
+      // remove={(id) => collection.doc(id).delete()}
     />
   )
 }
