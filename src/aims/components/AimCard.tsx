@@ -27,8 +27,6 @@ export default function AimCard({aim}: Props) {
   const effortsCollection = useEffortsCollection(aim.id)
   const [efforts, loading, error] = useEfforts(aim.id)
 
-  console.log(efforts)
-
   if (loading) {
     return (
       <Container>
@@ -149,6 +147,8 @@ export default function AimCard({aim}: Props) {
 
 const Container = ({children}: {children: React.ReactNode}) => (
   <Stack
+    bg="gray.100"
+    boxShadow="md"
     alignItems="center"
     justifyContent="space-between"
     paddingX="10"

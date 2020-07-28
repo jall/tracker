@@ -1,4 +1,4 @@
-import {Box, Grid, Stack} from "@chakra-ui/core"
+import {Grid, Stack} from "@chakra-ui/core"
 import React from "react"
 import {Aim} from "../types"
 import AddNew from "./AddNewAim"
@@ -17,9 +17,7 @@ export default function CardGrid({aims}: Props) {
         gap={3}
       >
         {aims.map((aim) => (
-          <Box key={aim.id} bg="gray.100" boxShadow="md">
-            <AimCard aim={aim} />
-          </Box>
+          <AimCard aim={aim} key={aim.id} />
         ))}
       </Grid>
 

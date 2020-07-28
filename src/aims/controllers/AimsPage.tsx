@@ -1,7 +1,7 @@
 import {Spinner, Text} from "@chakra-ui/core"
 import React from "react"
 import log from "../../logger"
-import CardGrid from "../components/MainContent"
+import CardGrid from "../components/CardGrid"
 import {useAims} from "../hooks"
 
 export default function AimsPage() {
