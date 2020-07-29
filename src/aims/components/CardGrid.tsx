@@ -1,4 +1,4 @@
-import {Grid, Stack} from "@chakra-ui/core"
+import {Flex, Grid, Stack} from "@chakra-ui/core"
 import React from "react"
 import {Aim} from "../types"
 import AddNew from "./AddNewAim"
@@ -10,7 +10,7 @@ interface Props {
 
 export default function CardGrid({aims}: Props) {
   return (
-    <Stack spacing={10} width="100%" padding={5}>
+    <Stack spacing={10} width="full" padding={5}>
       <Grid
         gridTemplateColumns="repeat( auto-fit, 250px )"
         justifyContent="center"
@@ -21,7 +21,9 @@ export default function CardGrid({aims}: Props) {
         ))}
       </Grid>
 
-      <AddNew />
+      <Flex maxW="sm" alignSelf="center">
+        <AddNew />
+      </Flex>
     </Stack>
   )
 }

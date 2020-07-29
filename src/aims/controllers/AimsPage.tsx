@@ -17,7 +17,7 @@ export default function AimsPage() {
       reason: error.message,
     })
     return (
-      <Text color="red" size="xl">
+      <Text color="red" fontSize="xl">
         Sorry, something went wrong while fetching your Aims!
       </Text>
     )

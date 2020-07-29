@@ -2,10 +2,11 @@ import {
   Button,
   FormControl,
   FormHelperText,
+  HStack,
   Input,
-  Stack,
 } from "@chakra-ui/core"
 import React, {FormEvent, useState} from "react"
+import {FaPlus as PlusIcon} from "react-icons/fa"
 import * as uuid from "uuid"
 import {useAimsCollection} from "../hooks"
 
@@ -26,7 +27,7 @@ export default function AddNewAim() {
         setTitle(null)
       }}
     >
-      <Stack isInline justify="center">
+      <HStack align="flex-start">
         <FormControl>
           <Input
             type="text"
@@ -41,14 +42,14 @@ export default function AddNewAim() {
         </FormControl>
         <Button
           aria-label="Add aim"
-          leftIcon="add"
+          rightIcon={<PlusIcon />}
           type="submit"
           bg="green.400"
           color="white"
         >
           Add
         </Button>
-      </Stack>
+      </HStack>
     </form>
   )
 }

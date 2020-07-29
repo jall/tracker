@@ -4,19 +4,20 @@ import {
   Editable,
   EditableInput,
   EditablePreview,
+  HStack,
   Menu,
   MenuButton,
   MenuItem,
   MenuList,
+  Spinner,
   Stack,
   Text,
-  Spinner,
 } from "@chakra-ui/core"
 import React from "react"
 import * as uuid from "uuid"
 import {accumulate} from "../../helpers"
+import {useAimDoc, useEfforts, useEffortsCollection} from "../hooks"
 import {Aim} from "../types"
-import {useEfforts, useEffortsCollection, useAimDoc} from "../hooks"
 
 interface Props {
   aim: Aim
@@ -38,7 +39,7 @@ export default function AimCard({aim}: Props) {
   if (error) {
     return (
       <Container>
-        <Text color="red" size="xl">
+        <Text color="red" fontSize="xl">
           Sorry, something went wrong while fetching your Efforts!
         </Text>
       </Container>
@@ -83,7 +84,7 @@ export default function AimCard({aim}: Props) {
 
   return (
     <Container>
-      <Stack isInline>
+      <HStack>
         <Editable
           defaultValue={aim.title}
           onChange={(title) => aimDoc.set({title}, {merge: true})}
@@ -103,11 +104,11 @@ export default function AimCard({aim}: Props) {
             </MenuList>
           </Menu>
         </Box>
-      </Stack>
+      </HStack>
 
       <Stack
         bg="cyan.100"
-        width="100%"
+        width="full"
         alignItems="center"
         padding={1}
         borderRadius={4}
@@ -119,11 +120,11 @@ export default function AimCard({aim}: Props) {
       </Stack>
 
       <Stack alignItems="center" spacing={0}>
-        <Stack isInline={true} justify="space-between" alignItems="center">
+        <HStack justify="space-between" alignItems="center">
           <IncrementEffortButton amount={1} onClick={accumulateEffortClicks} />
           <IncrementEffortButton amount={5} onClick={accumulateEffortClicks} />
           <IncrementEffortButton amount={10} onClick={accumulateEffortClicks} />
-        </Stack>
+        </HStack>
 
         <Button
           aria-label="Remove most recent effort"
@@ -135,7 +136,7 @@ export default function AimCard({aim}: Props) {
           }}
           color="gray.300"
           fontSize="3xl"
-          width="100%"
+          width="full"
           isDisabled={totalEfforts === 0}
         >
           ⤺
