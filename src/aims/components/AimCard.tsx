@@ -11,6 +11,7 @@ import {
   MenuList,
   Spinner,
   Stack,
+  StackProps,
   Text,
 } from "@chakra-ui/core"
 import React from "react"
@@ -30,7 +31,7 @@ export default function AimCard({aim}: Props) {
 
   if (loading) {
     return (
-      <Container>
+      <Container justifyContent="center">
         <Spinner size="xl" />
       </Container>
     )
@@ -146,7 +147,10 @@ export default function AimCard({aim}: Props) {
   )
 }
 
-const Container = ({children}: {children: React.ReactNode}) => (
+const Container = ({
+  children,
+  ...props
+}: {children: React.ReactNode} & StackProps) => (
   <Stack
     bg="gray.100"
     boxShadow="md"
@@ -154,6 +158,8 @@ const Container = ({children}: {children: React.ReactNode}) => (
     justifyContent="space-between"
     paddingX="10"
     paddingTop="5"
+    minH="250px"
+    {...props}
   >
     {children}
   </Stack>
