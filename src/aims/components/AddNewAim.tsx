@@ -42,7 +42,7 @@ export default function AddNewAim() {
         </FormControl>
         <Button
           aria-label="Add aim"
-          rightIcon={<PlusIcon />}
+          leftIcon={<PlusIcon />}
           type="submit"
           bg="green.400"
           color="white"
