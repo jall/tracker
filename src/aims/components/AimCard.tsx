@@ -14,6 +14,7 @@ import {
   StackProps,
   Text,
 } from "@chakra-ui/core"
+import {FaEllipsisV as VerticalEllipsisIcon} from "react-icons/fa"
 import React from "react"
 import * as uuid from "uuid"
 import {accumulate} from "../../helpers"
@@ -84,28 +85,26 @@ export default function AimCard({aim}: Props) {
   )
 
   return (
-    <Container>
-      <HStack>
-        <Editable
-          defaultValue={aim.title}
-          onChange={(title) => aimDoc.set({title}, {merge: true})}
-          size="l"
-        >
-          <EditablePreview />
-          <EditableInput />
-        </Editable>
+    <Container position="relative">
+      <Box position="absolute" top={4} right={2}>
+        <Menu placement="bottom-end">
+          <MenuButton fontSize="xl">
+            <VerticalEllipsisIcon color="gray" />
+          </MenuButton>
+          <MenuList>
+            <MenuItem onClick={() => aimDoc.delete()}>Delete aim</MenuItem>
+          </MenuList>
+        </Menu>
+      </Box>
 
-        <Box>
-          <Menu>
-            <MenuButton as={Button} fontSize="3xl" fontWeight="bold">
-              ⋯
-            </MenuButton>
-            <MenuList>
-              <MenuItem onClick={() => aimDoc.delete()}>Delete aim</MenuItem>
-            </MenuList>
-          </Menu>
-        </Box>
-      </HStack>
+      <Editable
+        defaultValue={aim.title}
+        onChange={(title) => aimDoc.set({title}, {merge: true})}
+        size="l"
+      >
+        <EditablePreview />
+        <EditableInput />
+      </Editable>
 
       <Stack
         bg="cyan.100"
