@@ -1,6 +1,7 @@
 export interface Aim {
   id: string
   title: string
+  createdAt: Date
 }
 
 export interface Effort {

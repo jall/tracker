@@ -11,7 +11,7 @@ export const useAimsCollection = () => {
 
 export const useAims = () => {
   const collection = useAimsCollection()
-  return useCollectionData<Aim>(collection, {
+  return useCollectionData<Aim>(collection.orderBy("createdAt", "desc"), {
     idField: "id",
   })
 }

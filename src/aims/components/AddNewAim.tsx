@@ -21,7 +21,7 @@ export default function AddNewAim() {
         event.preventDefault()
 
         if (title) {
-          collection.add({id: uuid.v4(), title})
+          collection.add({id: uuid.v4(), createdAt: new Date(), title})
         }
 
         setTitle(null)
