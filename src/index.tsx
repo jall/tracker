@@ -1,10 +1,9 @@
 /* eslint-disable import/first */
+import {ChakraProvider} from "@chakra-ui/core"
+import theme from "@chakra-ui/theme"
 import * as firebase from "firebase/app"
 import "firebase/auth"
 import "firebase/firestore"
-
-import React from "react"
-import ReactDOM from "react-dom"
 import log from "./logger"
 
 firebase.initializeApp({
@@ -28,18 +27,34 @@ firebase
     }),
   )
 
-import "./index.css"
+import React from "react"
+import ReactDOM from "react-dom"
 import App from "./App"
+import "./index.css"
 import * as serviceWorker from "./serviceWorker"
+import ServiceWorkerToast, {ServiceWorkerStatus} from "./ServiceWorkerToast"
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <ChakraProvider theme={theme}>
+      <App />
+      <ServiceWorkerToast />
+    </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root"),
 )
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister()
+serviceWorker.register({
+  onSuccess: () =>
+    window.dispatchEvent(
+      new CustomEvent<ServiceWorkerStatus>("service-worker-status", {
+        detail: "installed",
+      }),
+    ),
+  onUpdate: () =>
+    window.dispatchEvent(
+      new CustomEvent<ServiceWorkerStatus>("service-worker-status", {
+        detail: "ready-to-update",
+      }),
+    ),
+})

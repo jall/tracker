@@ -1,13 +1,4 @@
-import {
-  Box,
-  Button,
-  ChakraProvider,
-  CSSReset,
-  Flex,
-  Heading,
-  Spinner,
-} from "@chakra-ui/core"
-import theme from "@chakra-ui/theme"
+import {Box, Button, CSSReset, Flex, Heading, Spinner} from "@chakra-ui/core"
 import * as firebase from "firebase/app"
 import React from "react"
 import {FaSignOutAlt as LogoutIcon} from "react-icons/fa"
@@ -19,7 +10,7 @@ function App() {
   const [user, loading] = useAuth()
 
   return (
-    <ChakraProvider theme={theme}>
+    <>
       <CSSReset />
 
       <Flex
@@ -50,10 +41,10 @@ function App() {
         ) : null}
       </Flex>
 
-      <Flex as="section" padding="1.5rem" justify="center">
+      <Flex as="main" padding="1.5rem" justify="center">
         {loading ? <Spinner size="xl" /> : user ? <AimsPage /> : <LoginPage />}
       </Flex>
-    </ChakraProvider>
+    </>
   )
 }
 
