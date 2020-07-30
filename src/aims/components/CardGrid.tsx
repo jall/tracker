@@ -14,7 +14,7 @@ export default function CardGrid({aims}: Props) {
       <Grid
         gridTemplateColumns="repeat( auto-fit, 250px )"
         justifyContent="center"
-        gap={3}
+        gap={8}
       >
         {aims.map((aim) => (
           <AimCard aim={aim} key={aim.id} />
