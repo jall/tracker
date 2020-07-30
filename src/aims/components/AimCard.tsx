@@ -101,6 +101,7 @@ export default function AimCard({aim}: Props) {
         defaultValue={aim.title}
         onChange={(title) => aimDoc.set({title}, {merge: true})}
         size="l"
+        fontWeight="bold"
       >
         <EditablePreview />
         <EditableInput />
@@ -113,10 +114,12 @@ export default function AimCard({aim}: Props) {
         padding={1}
         borderRadius={4}
       >
-        <Text fontSize="3xl" margin={0}>
+        <Text fontSize="3xl" margin={0} fontWeight="bold">
           {totalEfforts}
         </Text>
-        <Text fontSize="xs">Today</Text>
+        <Text fontSize="xs" fontStyle="italic">
+          Today
+        </Text>
       </Stack>
 
       <Stack alignItems="center" spacing={0}>

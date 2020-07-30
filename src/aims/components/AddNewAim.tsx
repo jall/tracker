@@ -1,14 +1,16 @@
 import {
-  Button,
   FormControl,
   FormHelperText,
   HStack,
+  IconButton,
   Input,
 } from "@chakra-ui/core"
 import React, {FormEvent, useState} from "react"
 import {FaPlus as PlusIcon} from "react-icons/fa"
 import * as uuid from "uuid"
 import {useAimsCollection} from "../hooks"
+
+const helpText = "Add an aim"
 
 export default function AddNewAim() {
   const collection = useAimsCollection()
@@ -34,21 +36,25 @@ export default function AddNewAim() {
             id="title"
             aria-describedby="title-helper-text"
             value={title || ""}
+            placeholder={helpText}
             onChange={(event: FormEvent<HTMLInputElement>) =>
               setTitle(event.currentTarget.value)
             }
           />
-          <FormHelperText id="title-helper-text">Add a new aim</FormHelperText>
+          {title ? (
+            <FormHelperText id="title-helper-text">{helpText}</FormHelperText>
+          ) : null}
         </FormControl>
-        <Button
-          aria-label="Add aim"
-          leftIcon={<PlusIcon />}
-          type="submit"
-          bg="gray.500"
-          color="white"
-        >
-          Add
-        </Button>
+
+        {title ? (
+          <IconButton
+            aria-label="Add aim"
+            icon={<PlusIcon />}
+            type="submit"
+            bg="gray.500"
+            color="white"
+          />
+        ) : null}
       </HStack>
     </form>
   )
