@@ -1,4 +1,4 @@
-import {Box, Button, CSSReset, Flex, Heading, Spinner} from "@chakra-ui/core"
+import {Box, Button, CSSReset, Flex, Spinner} from "@chakra-ui/core"
 import * as firebase from "firebase/app"
 import React from "react"
 import {FaSignOutAlt as LogoutIcon} from "react-icons/fa"
@@ -16,23 +16,16 @@ function App() {
       <Flex
         as="nav"
         align="center"
-        justify="space-between"
-        wrap="wrap"
-        padding="1.5rem"
-        bg="gray.500"
+        justify="flex-end"
+        paddingX={4}
+        paddingY={2}
       >
-        <Flex align="center" mr={5}>
-          <Heading as="h1" size="lg" color="white">
-            Tracker
-          </Heading>
-        </Flex>
-
         {user ? (
           <Box>
             <Button
-              rightIcon={<LogoutIcon />}
-              bg="gray.300"
-              color="gray.700"
+              rightIcon={<LogoutIcon color="gray.300" />}
+              color="gray.300"
+              variant="ghost"
               onClick={() => firebase.auth().signOut()}
             >
               Logout
@@ -41,7 +34,7 @@ function App() {
         ) : null}
       </Flex>
 
-      <Flex as="main" padding="1.5rem" justify="center">
+      <Flex as="main" paddingX="1.5rem" justify="center">
         {loading ? <Spinner size="xl" /> : user ? <AimsPage /> : <LoginPage />}
       </Flex>
     </>
