@@ -28,7 +28,7 @@ function App() {
         justify="space-between"
         wrap="wrap"
         padding="1.5rem"
-        bg="blue.400"
+        bg="gray.500"
       >
         <Flex align="center" mr={5}>
           <Heading as="h1" size="lg" color="white">

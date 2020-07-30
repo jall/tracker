@@ -73,7 +73,7 @@ export default function AimCard({aim}: Props) {
           }),
         )
       }
-      bg="blue.400"
+      bg="gray.500"
       color="white"
       height="12"
       width="12"
@@ -107,7 +107,7 @@ export default function AimCard({aim}: Props) {
       </Editable>
 
       <Stack
-        bg="cyan.100"
+        bg="gray.300"
         width="full"
         alignItems="center"
         padding={1}
@@ -134,7 +134,7 @@ export default function AimCard({aim}: Props) {
               effortsCollection.doc(mostRecentEffort.id).delete()
             }
           }}
-          color="gray.300"
+          color="gray.500"
           fontSize="3xl"
           width="full"
           isDisabled={totalEfforts === 0}

@@ -44,7 +44,7 @@ export default function AddNewAim() {
           aria-label="Add aim"
           leftIcon={<PlusIcon />}
           type="submit"
-          bg="green.400"
+          bg="gray.500"
           color="white"
         >
           Add
