@@ -123,7 +123,7 @@ export default function AimCard({aim}: Props) {
       </Stack>
 
       <Stack alignItems="center" spacing={0}>
-        <HStack justify="space-between" alignItems="center">
+        <HStack justify="space-between" alignItems="baseline">
           <IncrementEffortButton amount={1} onClick={accumulateEffortClicks} />
           <IncrementEffortButton amount={5} onClick={accumulateEffortClicks} />
           <IncrementEffortButton amount={10} onClick={accumulateEffortClicks} />
