@@ -18,7 +18,7 @@ import {FaEllipsisV as VerticalEllipsisIcon} from "react-icons/fa"
 import React from "react"
 import * as uuid from "uuid"
 import {accumulate} from "../../helpers"
-import {useAimDoc, useEfforts, useEffortsCollection} from "../hooks"
+import {useAimDoc, useTodaysEfforts, useEffortsCollection} from "../hooks"
 import {Aim} from "../types"
 
 interface Props {
@@ -28,7 +28,7 @@ interface Props {
 export default function AimCard({aim}: Props) {
   const aimDoc = useAimDoc(aim.id)
   const effortsCollection = useEffortsCollection(aim.id)
-  const [efforts, loading, error] = useEfforts(aim.id)
+  const [efforts, loading, error] = useTodaysEfforts(aim.id)
 
   if (loading) {
     return (

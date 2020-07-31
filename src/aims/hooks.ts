@@ -1,3 +1,5 @@
+import endOfToday from "date-fns/endOfToday"
+import startOfToday from "date-fns/startOfToday"
 import {useCollectionData} from "react-firebase-hooks/firestore"
 import {useCurrentUserDocument} from "../database"
 import {Aim, Effort} from "./types"
@@ -33,6 +35,19 @@ export const useEfforts = (aimId: string) => {
   return useCollectionData<Effort>(collection.orderBy("achievedAt", "desc"), {
     idField: "id",
   })
+}
+
+export const useTodaysEfforts = (aimId: string) => {
+  const collection = useEffortsCollection(aimId)
+  return useCollectionData<Effort>(
+    collection
+      .orderBy("achievedAt", "desc")
+      .where("achievedAt", ">=", startOfToday())
+      .where("achievedAt", "<=", endOfToday()),
+    {
+      idField: "id",
+    },
+  )
 }
 
 export const useEffortDoc = (aimId: string, effortId: string) => {
