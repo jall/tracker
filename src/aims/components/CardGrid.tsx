@@ -10,7 +10,7 @@ interface Props {
 
 export default function CardGrid({aims}: Props) {
   return (
-    <Stack spacing={10} width="full" padding={5}>
+    <Stack spacing={10} width="full">
       <Grid
         gridTemplateColumns="repeat( auto-fit, 250px )"
         justifyContent="center"
